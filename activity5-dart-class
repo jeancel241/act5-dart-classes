@@ -1,0 +1,47 @@
+import 'package:act_5/act_5.dart' as act_5;
+import 'dart:io';
+import 'package:crypto/crypto.dart';
+import 'dart:convert';
+
+class Student {
+  String id;
+  String name;
+  String email;
+  String password;
+  String gender;
+
+  Student({this.id, this.name, this.email, this.password, this.gender});
+
+  String getPassword() {
+    var bytes = utf8.encode(password);
+    var hashedPassword = sha1.convert(bytes);
+    return "$hashedPassword";
+  }
+
+  String getPronoun() {
+    switch (gender) {
+      case "female":
+        return 'She';
+        break;
+      case "male":
+        return 'He';
+        break;
+      default:
+        return 'He/She';
+    }
+  }
+}
+
+void main(List<String> arguments) {
+  final student = Student(
+      id: '0110abc',
+      name: 'Jeancel Elizarde',
+      email: 'jeancel.elizarde@wvsu.edu.ph',
+      password: 'A1B2C3',
+      gender: 'female');
+
+  print("${student.name} is a student of West Visayas State University.");
+  print("${student.getPronoun()} can be emailed through ${student.email}.");
+  print(
+      "Current password access for this account ${student.id} is ${student.getPassword()}.");
+}
